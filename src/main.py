@@ -257,4 +257,5 @@ class SimpleTimeTrackerApp(MDApp):
         self.root.content_widget.on_exit()
 
 
-SimpleTimeTrackerApp().run()
+if __name__ == '__main__':
+    SimpleTimeTrackerApp().run()
