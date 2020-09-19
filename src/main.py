@@ -75,16 +75,18 @@ Screen:
                         elevation: 10
                         left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]]
 
-                    ClockWidget: 
-                        padding: 0, 50, 0, 0
+                    BoxLayout:
                         id: content
-                        orientation: 'vertical'
-                        
-                        MDRectangleFlatButton:
-                            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-                            id: toggle
-                            text: self.parent.clock
-                            on_release: self.parent.toggle()
+                    
+                        ClockWidget: 
+                            padding: 0, 50, 0, 0
+                            orientation: 'vertical'
+                            
+                            MDRectangleFlatButton:
+                                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                                id: toggle
+                                text: self.parent.clock
+                                on_release: self.parent.toggle()
                                 
 
         MDNavigationDrawer:
