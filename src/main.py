@@ -1,6 +1,8 @@
 import sqlite3
 from datetime import datetime, timedelta
+from pathlib import Path
 
+from kivy import platform
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.lang import Builder
@@ -14,8 +16,14 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.list import OneLineIconListItem, MDList
 from kivymd.uix.screen import MDScreen
 
-db = sqlite3.connect("storage.db")
-store = DictStore('settings.json')
+if platform == 'macosx':
+    file_path = Path(
+        '~/Library/Application Support/%s' % __name__).expanduser()
+    file_path.mkdir(parents=True, exist_ok=True)
+
+
+db = sqlite3.connect(file_path.joinpath('storage.db'))
+store = DictStore(file_path.joinpath('settings.json'))
 
 KV = '''
 # Menu item in the DrawerList list.
@@ -78,7 +86,7 @@ Screen:
                     BoxLayout:
                         id: content
                     
-                        ClockWidget: 
+                        ClockWidget:
                             padding: 0, 50, 0, 0
                             orientation: 'vertical'
                             
@@ -256,7 +264,7 @@ class SimpleTimeTrackerApp(MDApp):
             )
 
     def on_exit(self, arg):
-        self.root.content_widget.on_exit()
+        pass  # self.root.content.current.on_exit()
 
 
 if __name__ == '__main__':
