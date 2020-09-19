@@ -16,11 +16,12 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.list import OneLineIconListItem, MDList
 from kivymd.uix.screen import MDScreen
 
+file_path = Path('.')
+
 if platform == 'macosx':
     file_path = Path(
         '~/Library/Application Support/%s' % __name__).expanduser()
     file_path.mkdir(parents=True, exist_ok=True)
-
 
 db = sqlite3.connect(file_path.joinpath('storage.db'))
 store = DictStore(file_path.joinpath('settings.json'))
@@ -195,7 +196,8 @@ class ClockWidget(MDScreen):
         else:
             self.clock = str(self.seconds - timedelta(hours=8))
 
-        if self.start_time.strftime("%Y-%m-%d") != datetime.now().strftime("%Y-%m-%d"):
+        if self.start_time.strftime("%Y-%m-%d") != datetime.now().strftime(
+                "%Y-%m-%d"):
             self.stop()
             self.start()
 
