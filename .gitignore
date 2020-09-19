@@ -95,7 +95,6 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-build/
 develop-eggs/
 dist/
 downloads/
