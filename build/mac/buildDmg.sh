@@ -76,7 +76,7 @@ pushd pyinstaller
 
 cat >> ${APP_NAME}.spec <<EOF
 # -*- mode: python ; coding: utf-8 -*-
-
+from kivymd import hooks_path as kivymd_hooks_path
 block_cipher = None
 
 
@@ -85,7 +85,7 @@ a = Analysis(['../src/main.py'],
              binaries=[],
              datas=[],
              hiddenimports=['pkg_resources.py2_warn'],
-             hookspath=[],
+             hookspath=[kivymd_hooks_path],
              runtime_hooks=[],
              excludes=['_tkinter', 'Tkinter', 'enchant', 'twisted'],
              win_no_prefer_redirects=False,
