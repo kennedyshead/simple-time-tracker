@@ -6,18 +6,21 @@ from kivymd.app import MDApp
 from kivymd.uix.screen import MDScreen
 
 from tools.db import run_query
-from tools.timeutils import get_today_time
+from tools.timeutils import get_today_time, negative_handle
 
 
 class ClockWidget(MDScreen):
     clock = StringProperty()
+    flex = StringProperty()
 
     def __init__(self, **kwargs):
         super(ClockWidget, self).__init__(**kwargs)
         self.seconds = 0
         self.start_time = None
         self._saved_seconds = timedelta(seconds=get_today_time())
-        work_hours = MDApp.get_running_app().settings.get('work_hours')
+        app = MDApp.get_running_app()
+        self.flex = "Flex %s" % negative_handle(app.current_state['flex'])
+        work_hours = app.settings.get('work_hours')
         work_hours = timedelta(hours=work_hours)
         self.clock = ("-" if self._saved_seconds < work_hours else "") + str(
             work_hours - self._saved_seconds
@@ -53,7 +56,6 @@ class ClockWidget(MDScreen):
                     params={
                         "seconds": self._saved_seconds.seconds,
                         "today": datetime.now().strftime("%Y-%m-%d")})
-
             Clock.unschedule(self.update)
 
     def toggle(self):
@@ -80,9 +82,12 @@ class ClockWidget(MDScreen):
             self.start()
 
     def new_day(self, *args):
-        if self.start_time.day < datetime.now().day:
+        if MDApp.get_running_app().is_new_day():
             work_hours = MDApp.get_running_app().settings.get('work_hours')
             self.clock = "-%s:00:00" % work_hours
+            app = MDApp.get_running_app()
+            app.update_flex()
+            self.flex = "Flex %s" % negative_handle(app.current_state['flex'])
 
     def on_exit(self):
         Clock.unschedule(self.new_day)

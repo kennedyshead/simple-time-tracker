@@ -7,7 +7,7 @@ it should keep me at my 40h a week work time.
 
 ## feature plan
 * [x] track 8h day
-* [ ] track flex hours
+* [x] track flex hours
 * [ ] settings for hours working per day
 * [ ] settings for what days to work
 * [ ] settings for vacation
