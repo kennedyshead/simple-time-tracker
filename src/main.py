@@ -14,7 +14,7 @@ class SimpleTimeTrackerApp(MDApp):
         try:
             self.settings = store.get('settings')
         except KeyError:
-            self.settings = {"workhours": 8}
+            self.settings = {"work_hours": 8}
             store.put('settings', **self.settings)
         run_query(
             query="CREATE TABLE IF NOT EXISTS day_log ("
