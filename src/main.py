@@ -1,6 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
-from kivy import Logger
+from kivy import Logger, Config
 from kivy.core.window import Window
 
 from kivymd.app import MDApp
@@ -9,6 +9,8 @@ from tools.db import run_query
 from tools.files import store
 from tools.timeutils import get_not_counted_days, negative_handle
 from widgets.navigation import ItemDrawer
+
+Config.set('kivy', 'window_icon', 'assets/icon.png')
 
 
 class SimpleTimeTrackerApp(MDApp):
