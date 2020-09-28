@@ -11,6 +11,7 @@ from tools.timeutils import get_not_counted_days, negative_handle
 from widgets.navigation import ItemDrawer
 
 Config.set('kivy', 'window_icon', 'assets/icon.png')
+Config.window_icon = "assets/icon.png"
 
 
 class SimpleTimeTrackerApp(MDApp):
